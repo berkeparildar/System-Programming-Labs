@@ -1,37 +1,39 @@
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args) throws Exception {
-        Scanner fileObserver = new Scanner(
-                new File("C:\\Users\\Berke\\Documents\\Code\\Java\\SE375Labs\\src\\01-January.csv"))
-                .useDelimiter(",");
-        // while (fileObserver.hasNext()) {
-        fileObserver.nextLine();
-        ArrayList<Integer> arr = new ArrayList<>();
-        ArrayList<Integer> arr2 = new ArrayList<>();
-        ArrayList<Integer> arr3 = new ArrayList<>();
-        while (fileObserver.hasNextLine()) {
-            String line = fileObserver.nextLine();
-            String[] fields = line.split(",");
-            arr.add(Integer.parseInt(fields[1]));
-            arr2.add(Integer.parseInt(fields[2]));
-            arr3.add(Integer.parseInt(fields[3]));
-        }
-        System.out.println("shee");
-        for (int a = 0; a < arr.size(); a++) {
-            System.out.println(arr.get(a));
-        }
-        System.out.println("shee2");
-        for (int a = 0; a < arr2.size(); a++) {
-            System.out.println(arr2.get(a));
-        }
-        System.out.println("shee3");
-        for (int a = 0; a < arr3.size(); a++) {
-            System.out.println(arr3.get(a));
+    private static Scanner fileObserver;
 
-            fileObserver.close();
+    public static void readCSV(String path, ArrayList<Integer> price, ArrayList<Integer> store,
+            ArrayList<Integer> online) {
+        try {
+            fileObserver = new Scanner(new File(path)).useDelimiter(",");
+        } catch (FileNotFoundException e) {
+            System.err.println("error");
         }
+        fileObserver.nextLine();
+        while (fileObserver.hasNextLine()) {
+            String row = fileObserver.nextLine();
+            String[] contents = row.split(",");
+            price.add(Integer.parseInt(contents[1]));
+            store.add(Integer.parseInt(contents[2]));
+            online.add(Integer.parseInt(contents[3]));
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        ArrayList<Integer> januaryPrice = new ArrayList<>();
+        ArrayList<Integer> januaryStore = new ArrayList<>();
+        ArrayList<Integer> januaryOnline = new ArrayList<>();
+        String januaryPath = "C:\\Users\\Berke\\Documents\\Code\\Java\\SE375Labs\\src\\01-January.csv";
+        readCSV(januaryPath, januaryPrice, januaryStore, januaryOnline);
+        for (int i = 0; i < 12; i++) {
+            System.out.println(januaryOnline.get(i));
+        }
+
     }
 }
