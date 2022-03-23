@@ -5,24 +5,33 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws Exception {
         Scanner fileObserver = new Scanner(
-                new File("C:\\Users\\bprld\\Documents\\GitHub\\SE375Labs\\src\\01-January.csv"));
-        fileObserver.useDelimiter(",");
+                new File("C:\\Users\\Berke\\Documents\\Code\\Java\\SE375Labs\\src\\01-January.csv"))
+                .useDelimiter(",");
         // while (fileObserver.hasNext()) {
         fileObserver.nextLine();
-        // System.out.println(fileObserver.next());
         ArrayList<Integer> arr = new ArrayList<>();
-        for (int i = 2; i < 14; i++) {
-            fileObserver.next();
-            arr.add(fileObserver.nextInt());
-            // System.out.println(fileObserver.next());
-            fileObserver.nextLine();
-            // System.out.println(fileObserver.next());
+        ArrayList<Integer> arr2 = new ArrayList<>();
+        ArrayList<Integer> arr3 = new ArrayList<>();
+        while (fileObserver.hasNextLine()) {
+            String line = fileObserver.nextLine();
+            String[] fields = line.split(",");
+            arr.add(Integer.parseInt(fields[1]));
+            arr2.add(Integer.parseInt(fields[2]));
+            arr3.add(Integer.parseInt(fields[3]));
         }
         System.out.println("shee");
         for (int a = 0; a < arr.size(); a++) {
             System.out.println(arr.get(a));
         }
-        // }
-        fileObserver.close();
+        System.out.println("shee2");
+        for (int a = 0; a < arr2.size(); a++) {
+            System.out.println(arr2.get(a));
+        }
+        System.out.println("shee3");
+        for (int a = 0; a < arr3.size(); a++) {
+            System.out.println(arr3.get(a));
+
+            fileObserver.close();
+        }
     }
 }
