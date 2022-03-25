@@ -1,18 +1,18 @@
 import java.util.ArrayList;
 
 public class Variables {
-    String januaryPath = "C:\\Users\\Berke\\Documents\\Code\\Java\\SE375Labs\\src\\01-January.csv";
-    String februaryPath = "C:\\Users\\Berke\\Documents\\Code\\Java\\SE375Labs\\src\\02-February.csv";
-    String marchPath = "C:\\Users\\Berke\\Documents\\Code\\Java\\SE375Labs\\src\\03-March.csv";
-    String aprilPath = "C:\\Users\\Berke\\Documents\\Code\\Java\\SE375Labs\\src\\04-April.csv";
-    String mayPath = "C:\\Users\\Berke\\Documents\\Code\\Java\\SE375Labs\\src\\05-May.csv";
-    String junePath = "C:\\Users\\Berke\\Documents\\Code\\Java\\SE375Labs\\src\\06-June.csv";
-    String julyPath = "C:\\Users\\Berke\\Documents\\Code\\Java\\SE375Labs\\src\\07-July.csv";
-    String augustPath = "C:\\Users\\Berke\\Documents\\Code\\Java\\SE375Labs\\src\\08-August.csv";
-    String septemberPath = "C:\\Users\\Berke\\Documents\\Code\\Java\\SE375Labs\\src\\09-September.csv";
-    String octoberPath = "C:\\Users\\Berke\\Documents\\Code\\Java\\SE375Labs\\src\\10-October.csv";
-    String novemberPath = "C:\\Users\\Berke\\Documents\\Code\\Java\\SE375Labs\\src\\11-November.csv";
-    String decemberPath = "C:\\Users\\Berke\\Documents\\Code\\Java\\SE375Labs\\src\\12-December.csv";
+    String januaryPath = "src\\01-January.csv";
+    String februaryPath = "src\\02-February.csv";
+    String marchPath = "src\\03-March.csv";
+    String aprilPath = "src\\04-April.csv";
+    String mayPath = "src\\05-May.csv";
+    String junePath = "src\\06-June.csv";
+    String julyPath = "src\\07-July.csv";
+    String augustPath = "src\\08-August.csv";
+    String septemberPath = "src\\09-September.csv";
+    String octoberPath = "src\\10-October.csv";
+    String novemberPath = "src\\11-November.csv";
+    String decemberPath = "src\\12-December.csv";
     ArrayList<Integer> januaryPrice = new ArrayList<>();
     ArrayList<Integer> januaryStore = new ArrayList<>();
     ArrayList<Integer> januaryOnline = new ArrayList<>();
