@@ -8,35 +8,22 @@ public class App implements Runnable {
 
     public App(String month, String path, ArrayList<Integer> array, ArrayList<Integer> array2,
             ArrayList<Integer> array3) {
+        int sumAllStore = 0;
+        int sumAllOnline = 0;
         readCSV(path, array, array2, array3);
-        System.out.println(month + "store sale: " + mothlySale(array, array2));
-        System.out.println(month + "online sale" + mothlySale(array, array3));
+        System.out.println(month + " store sale: " + mothlySale(array, array2));
+        System.out.println(month + " online sale: " + mothlySale(array, array3));
     }
 
     public void run() {
 
         // Variables for holding content of January.
         Variables var = new Variables();
-
         // creating these arraylists which will store the "in-store" and Online prices
         // of all months.
         // I created these because I only wanted 1 method for yearly sales.
         ArrayList<ArrayList<Integer>> inStore = new ArrayList<>();
         ArrayList<ArrayList<Integer>> Online = new ArrayList<>();
-
-        // start reading all 12 .csv files
-        readCSV(var.getJanuaryPath(), var.getJanuaryPrice(), var.getJanuaryStore(), var.getJanuaryOnline());
-        readCSV(var.getFebruaryPath(), var.getFebruaryPrice(), var.getFebruaryStore(), var.getFebruaryOnline());
-        readCSV(var.getMarchPath(), var.getMarchPrice(), var.getMarchStore(), var.getMarchOnline());
-        readCSV(var.getAprilPath(), var.getAprilPrice(), var.getAprilStore(), var.getAprilOnline());
-        readCSV(var.getMayPath(), var.getMayPrice(), var.getMayStore(), var.getMayOnline());
-        readCSV(var.getJunePath(), var.getJunePrice(), var.getJuneStore(), var.getJuneOnline());
-        readCSV(var.getJulyPath(), var.getJulyPrice(), var.getJulyStore(), var.getJulyOnline());
-        readCSV(var.getAugustPath(), var.getAugustPrice(), var.getAugustStore(), var.getAugustOnline());
-        readCSV(var.getSeptemberPath(), var.getSeptemberPrice(), var.getSeptemberStore(), var.getSeptemberOnline());
-        readCSV(var.getOctoberPath(), var.getOctoberPrice(), var.getOctoberStore(), var.getOctoberOnline());
-        readCSV(var.getNovemberPath(), var.getNovemberPrice(), var.getNovemberStore(), var.getNovemberOnline());
-        readCSV(var.getDecemberPath(), var.getDecemberPrice(), var.getDecemberStore(), var.getDecemberOnline());
 
         // adding store values to the store array
         // which will be used on yearly sale method
@@ -68,15 +55,6 @@ public class App implements Runnable {
         Online.add(var.getNovemberOnline());
         Online.add(var.getDecemberOnline());
 
-        System.out.println("Year sale: " + yearlySaleAmount(inStore, Online) + " amount");// Answer for question 1
-        System.out.println("Monthly in-store sales of all products in the January are: "
-                + mothlySale(var.getJanuaryPrice(), var.getJanuaryStore()) + "TL");// Answer for question2
-        System.out.println("Monthly Online sales of all products in the January are: "
-                + mothlySale(var.getJanuaryPrice(), var.getJanuaryOnline()) + "TL");// Answer for question3
-        // answer for question 4
-        System.out.println("The total in-store sales for a year are: " + yearlySalePrice(inStore, var) + "TL");
-        // answer for question 5
-        System.out.println("The total Online sales for a year are: " + yearlySalePrice(Online, var) + "TL");
     }
 
     public static void readCSV(String path, ArrayList<Integer> price, ArrayList<Integer> store,
@@ -94,10 +72,6 @@ public class App implements Runnable {
             store.add(Integer.parseInt(contents[2]));
             Online.add(Integer.parseInt(contents[3]));
         }
-    }
-
-    public static void saveContents(Variables var) {
-
     }
 
     public static int mothlySale(ArrayList<Integer> price, ArrayList<Integer> array) {// method calculating
