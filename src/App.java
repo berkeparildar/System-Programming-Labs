@@ -26,10 +26,11 @@ public class App implements Runnable {
         totalStore = tTotalStore;
         totalOnline = tTotalOnline;
         total = tTotalOfAll;
+        readCSV(path, price, store, online);
     }
 
     public void run() {
-        readCSV(path, price, store, online);
+        System.out.println("Thread parsing " + month + " data.");
         int monthlyStoreSale = monthlyStoreSale(price, store);
         System.out.println(month + " store sale: " + monthlyStoreSale);
         int monthlyOnlineSale = monthlyOnlineSale(price, online);
