@@ -13,42 +13,71 @@ public class Variables {
     String octoberPath = "src\\10-October.csv";
     String novemberPath = "src\\11-November.csv";
     String decemberPath = "src\\12-December.csv";
-    ArrayList<Integer> januaryPrice = new ArrayList<>();
-    ArrayList<Integer> januaryStore = new ArrayList<>();
-    ArrayList<Integer> januaryOnline = new ArrayList<>();
-    ArrayList<Integer> februaryPrice = new ArrayList<>();
-    ArrayList<Integer> februaryStore = new ArrayList<>();
-    ArrayList<Integer> februaryOnline = new ArrayList<>();
-    ArrayList<Integer> marchPrice = new ArrayList<>();
-    ArrayList<Integer> marchStore = new ArrayList<>();
-    ArrayList<Integer> marchOnline = new ArrayList<>();
-    ArrayList<Integer> aprilPrice = new ArrayList<>();
-    ArrayList<Integer> aprilStore = new ArrayList<>();
-    ArrayList<Integer> aprilOnline = new ArrayList<>();
-    ArrayList<Integer> mayPrice = new ArrayList<>();
-    ArrayList<Integer> mayStore = new ArrayList<>();
-    ArrayList<Integer> mayOnline = new ArrayList<>();
-    ArrayList<Integer> junePrice = new ArrayList<>();
-    ArrayList<Integer> juneStore = new ArrayList<>();
-    ArrayList<Integer> juneOnline = new ArrayList<>();
-    ArrayList<Integer> julyPrice = new ArrayList<>();
-    ArrayList<Integer> julyStore = new ArrayList<>();
-    ArrayList<Integer> julyOnline = new ArrayList<>();
-    ArrayList<Integer> augustPrice = new ArrayList<>();
-    ArrayList<Integer> augustStore = new ArrayList<>();
-    ArrayList<Integer> augustOnline = new ArrayList<>();
-    ArrayList<Integer> septemberPrice = new ArrayList<>();
-    ArrayList<Integer> septemberStore = new ArrayList<>();
-    ArrayList<Integer> septemberOnline = new ArrayList<>();
-    ArrayList<Integer> octoberPrice = new ArrayList<>();
-    ArrayList<Integer> octoberStore = new ArrayList<>();
-    ArrayList<Integer> octoberOnline = new ArrayList<>();
-    ArrayList<Integer> novemberPrice = new ArrayList<>();
-    ArrayList<Integer> novemberStore = new ArrayList<>();
-    ArrayList<Integer> novemberOnline = new ArrayList<>();
-    ArrayList<Integer> decemberPrice = new ArrayList<>();
-    ArrayList<Integer> decemberStore = new ArrayList<>();
-    ArrayList<Integer> decemberOnline = new ArrayList<>();
+
+    ArrayList<Integer> priceData = new ArrayList<>();
+    ArrayList<Integer> inStoreData = new ArrayList<>();
+    ArrayList<Integer> onlineData = new ArrayList<>();
+    ArrayList<ArrayList<Integer>> sharedDataStructure = new ArrayList<>();
+
+    public ArrayList<Integer> getPriceData() {
+        return priceData;
+    }
+
+    public ArrayList<Integer> getInStoreData() {
+        return inStoreData;
+    }
+
+    public ArrayList<Integer> getOnlineData() {
+        return onlineData;
+    }
+
+    public ArrayList<ArrayList<Integer>> getSharedDataStructure() {
+        sharedDataStructure.add(priceData);
+        sharedDataStructure.add(inStoreData);
+        sharedDataStructure.add(onlineData);
+        return sharedDataStructure;
+    }
+
+    // ****************************OLD DATA
+    // STRUCTURES********************************
+    // ArrayList<Integer> januaryPrice = new ArrayList<>();
+    // ArrayList<Integer> januaryStore = new ArrayList<>();
+    // ArrayList<Integer> januaryOnline = new ArrayList<>();
+    // ArrayList<Integer> februaryPrice = new ArrayList<>();
+    // ArrayList<Integer> februaryStore = new ArrayList<>();
+    // ArrayList<Integer> februaryOnline = new ArrayList<>();
+    // ArrayList<Integer> marchPrice = new ArrayList<>();
+    // ArrayList<Integer> marchStore = new ArrayList<>();
+    // ArrayList<Integer> marchOnline = new ArrayList<>();
+    // ArrayList<Integer> aprilPrice = new ArrayList<>();
+    // ArrayList<Integer> aprilStore = new ArrayList<>();
+    // ArrayList<Integer> aprilOnline = new ArrayList<>();
+    // ArrayList<Integer> mayPrice = new ArrayList<>();
+    // ArrayList<Integer> mayStore = new ArrayList<>();
+    // ArrayList<Integer> mayOnline = new ArrayList<>();
+    // ArrayList<Integer> junePrice = new ArrayList<>();
+    // ArrayList<Integer> juneStore = new ArrayList<>();
+    // ArrayList<Integer> juneOnline = new ArrayList<>();
+    // ArrayList<Integer> julyPrice = new ArrayList<>();
+    // ArrayList<Integer> julyStore = new ArrayList<>();
+    // ArrayList<Integer> julyOnline = new ArrayList<>();
+    // ArrayList<Integer> augustPrice = new ArrayList<>();
+    // ArrayList<Integer> augustStore = new ArrayList<>();
+    // ArrayList<Integer> augustOnline = new ArrayList<>();
+    // ArrayList<Integer> septemberPrice = new ArrayList<>();
+    // ArrayList<Integer> septemberStore = new ArrayList<>();
+    // ArrayList<Integer> septemberOnline = new ArrayList<>();
+    // ArrayList<Integer> octoberPrice = new ArrayList<>();
+    // ArrayList<Integer> octoberStore = new ArrayList<>();
+    // ArrayList<Integer> octoberOnline = new ArrayList<>();
+    // ArrayList<Integer> novemberPrice = new ArrayList<>();
+    // ArrayList<Integer> novemberStore = new ArrayList<>();
+    // ArrayList<Integer> novemberOnline = new ArrayList<>();
+    // ArrayList<Integer> decemberPrice = new ArrayList<>();
+    // ArrayList<Integer> decemberStore = new ArrayList<>();
+    // ArrayList<Integer> decemberOnline = new ArrayList<>();
+    // ****************************OLD DATA
+    // STRUCTURES********************************
 
     public String getJanuaryPath() {
         return januaryPath;
@@ -98,156 +127,158 @@ public class Variables {
         return decemberPath;
     }
 
-    public ArrayList<Integer> getJanuaryPrice() {
-        return januaryPrice;
-    }
+    // ***************************OLD GET METHODS*******************************
+    // public ArrayList<Integer> getJanuaryPrice() {
+    // return januaryPrice;
+    // }
 
-    public ArrayList<Integer> getJanuaryStore() {
-        return januaryStore;
-    }
+    // public ArrayList<Integer> getJanuaryStore() {
+    // return januaryStore;
+    // }
 
-    public ArrayList<Integer> getJanuaryOnline() {
-        return januaryOnline;
-    }
+    // public ArrayList<Integer> getJanuaryOnline() {
+    // return januaryOnline;
+    // }
 
-    public ArrayList<Integer> getFebruaryPrice() {
-        return februaryPrice;
-    }
+    // public ArrayList<Integer> getFebruaryPrice() {
+    // return februaryPrice;
+    // }
 
-    public ArrayList<Integer> getFebruaryStore() {
-        return februaryStore;
-    }
+    // public ArrayList<Integer> getFebruaryStore() {
+    // return februaryStore;
+    // }
 
-    public ArrayList<Integer> getFebruaryOnline() {
-        return februaryOnline;
-    }
+    // public ArrayList<Integer> getFebruaryOnline() {
+    // return februaryOnline;
+    // }
 
-    public ArrayList<Integer> getMarchPrice() {
-        return marchPrice;
-    }
+    // public ArrayList<Integer> getMarchPrice() {
+    // return marchPrice;
+    // }
 
-    public ArrayList<Integer> getMarchStore() {
-        return marchStore;
-    }
+    // public ArrayList<Integer> getMarchStore() {
+    // return marchStore;
+    // }
 
-    public ArrayList<Integer> getMarchOnline() {
-        return marchOnline;
-    }
+    // public ArrayList<Integer> getMarchOnline() {
+    // return marchOnline;
+    // }
 
-    public ArrayList<Integer> getAprilPrice() {
-        return aprilPrice;
-    }
+    // public ArrayList<Integer> getAprilPrice() {
+    // return aprilPrice;
+    // }
 
-    public ArrayList<Integer> getAprilStore() {
-        return aprilStore;
-    }
+    // public ArrayList<Integer> getAprilStore() {
+    // return aprilStore;
+    // }
 
-    public ArrayList<Integer> getAprilOnline() {
-        return aprilOnline;
-    }
+    // public ArrayList<Integer> getAprilOnline() {
+    // return aprilOnline;
+    // }
 
-    public ArrayList<Integer> getMayPrice() {
-        return mayPrice;
-    }
+    // public ArrayList<Integer> getMayPrice() {
+    // return mayPrice;
+    // }
 
-    public ArrayList<Integer> getMayStore() {
-        return mayStore;
-    }
+    // public ArrayList<Integer> getMayStore() {
+    // return mayStore;
+    // }
 
-    public ArrayList<Integer> getMayOnline() {
-        return mayOnline;
-    }
+    // public ArrayList<Integer> getMayOnline() {
+    // return mayOnline;
+    // }
 
-    public ArrayList<Integer> getJunePrice() {
-        return junePrice;
-    }
+    // public ArrayList<Integer> getJunePrice() {
+    // return junePrice;
+    // }
 
-    public ArrayList<Integer> getJuneStore() {
-        return juneStore;
-    }
+    // public ArrayList<Integer> getJuneStore() {
+    // return juneStore;
+    // }
 
-    public ArrayList<Integer> getJuneOnline() {
-        return juneOnline;
-    }
+    // public ArrayList<Integer> getJuneOnline() {
+    // return juneOnline;
+    // }
 
-    /**
-     * @return the julyPrice
-     */
-    public ArrayList<Integer> getJulyPrice() {
-        return julyPrice;
-    }
+    // /**
+    // * @return the julyPrice
+    // */
+    // public ArrayList<Integer> getJulyPrice() {
+    // return julyPrice;
+    // }
 
-    /**
-     * @return the julyStore
-     */
-    public ArrayList<Integer> getJulyStore() {
-        return julyStore;
-    }
+    // /**
+    // * @return the julyStore
+    // */
+    // public ArrayList<Integer> getJulyStore() {
+    // return julyStore;
+    // }
 
-    /**
-     * @return the julyOnline
-     */
-    public ArrayList<Integer> getJulyOnline() {
-        return julyOnline;
-    }
+    // /**
+    // * @return the julyOnline
+    // */
+    // public ArrayList<Integer> getJulyOnline() {
+    // return julyOnline;
+    // }
 
-    public ArrayList<Integer> getAugustPrice() {
-        return augustPrice;
-    }
+    // public ArrayList<Integer> getAugustPrice() {
+    // return augustPrice;
+    // }
 
-    public ArrayList<Integer> getAugustStore() {
-        return augustStore;
-    }
+    // public ArrayList<Integer> getAugustStore() {
+    // return augustStore;
+    // }
 
-    public ArrayList<Integer> getAugustOnline() {
-        return augustOnline;
-    }
+    // public ArrayList<Integer> getAugustOnline() {
+    // return augustOnline;
+    // }
 
-    public ArrayList<Integer> getSeptemberPrice() {
-        return septemberPrice;
-    }
+    // public ArrayList<Integer> getSeptemberPrice() {
+    // return septemberPrice;
+    // }
 
-    public ArrayList<Integer> getSeptemberStore() {
-        return septemberStore;
-    }
+    // public ArrayList<Integer> getSeptemberStore() {
+    // return septemberStore;
+    // }
 
-    public ArrayList<Integer> getSeptemberOnline() {
-        return septemberOnline;
-    }
+    // public ArrayList<Integer> getSeptemberOnline() {
+    // return septemberOnline;
+    // }
 
-    public ArrayList<Integer> getOctoberPrice() {
-        return octoberPrice;
-    }
+    // public ArrayList<Integer> getOctoberPrice() {
+    // return octoberPrice;
+    // }
 
-    public ArrayList<Integer> getOctoberStore() {
-        return octoberStore;
-    }
+    // public ArrayList<Integer> getOctoberStore() {
+    // return octoberStore;
+    // }
 
-    public ArrayList<Integer> getOctoberOnline() {
-        return octoberOnline;
-    }
+    // public ArrayList<Integer> getOctoberOnline() {
+    // return octoberOnline;
+    // }
 
-    public ArrayList<Integer> getNovemberPrice() {
-        return novemberPrice;
-    }
+    // public ArrayList<Integer> getNovemberPrice() {
+    // return novemberPrice;
+    // }
 
-    public ArrayList<Integer> getNovemberStore() {
-        return novemberStore;
-    }
+    // public ArrayList<Integer> getNovemberStore() {
+    // return novemberStore;
+    // }
 
-    public ArrayList<Integer> getNovemberOnline() {
-        return novemberOnline;
-    }
+    // public ArrayList<Integer> getNovemberOnline() {
+    // return novemberOnline;
+    // }
 
-    public ArrayList<Integer> getDecemberPrice() {
-        return decemberPrice;
-    }
+    // public ArrayList<Integer> getDecemberPrice() {
+    // return decemberPrice;
+    // }
 
-    public ArrayList<Integer> getDecemberStore() {
-        return decemberStore;
-    }
+    // public ArrayList<Integer> getDecemberStore() {
+    // return decemberStore;
+    // }
 
-    public ArrayList<Integer> getDecemberOnline() {
-        return decemberOnline;
-    }
+    // public ArrayList<Integer> getDecemberOnline() {
+    // return decemberOnline;
+    // }
+    // ***************************OLD GET METHODS*******************************
 }

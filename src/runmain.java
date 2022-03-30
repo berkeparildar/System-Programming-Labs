@@ -6,76 +6,50 @@ public class runmain {
         public static void main(String[] args) throws InterruptedException {
                 Variables var = new Variables();
                 Scanner scan = new Scanner(System.in);
-                ArrayList<Integer> allStore = new ArrayList<>();
-                ArrayList<Integer> allOnline = new ArrayList<>();
-                ArrayList<Integer> totalofAll = new ArrayList<>();
                 int storeSum = 0;
                 int onlineSum = 0;
-                int total = 0;
                 System.out.println("Please enter the name of the files that will be calculated in the directory.");
                 String input = scan.nextLine();
                 String[] inputArray = input.split(" ");
-                App January = new App("January", var.getJanuaryPath(), var.getJanuaryPrice(), var.getJanuaryStore(),
-                                var.getJanuaryOnline(), allStore, allOnline, totalofAll);
+                App January = new App("January", var.getJanuaryPath(),
+                                var.getSharedDataStructure());
                 Thread t1 = new Thread(January);
 
                 App February = new App("February", var.getFebruaryPath(),
-                                var.getFebruaryPrice(),
-                                var.getFebruaryStore(),
-                                var.getFebruaryOnline(), allStore, allOnline, totalofAll);
+                                var.getSharedDataStructure());
                 Thread t2 = new Thread(February);
 
-                App March = new App("March", var.getMarchPath(), var.getMarchPrice(),
-                                var.getMarchStore(),
-                                var.getMarchOnline(), allStore, allOnline, totalofAll);
+                App March = new App("March", var.getMarchPath(), var.getSharedDataStructure());
                 Thread t3 = new Thread(March);
 
-                App April = new App("April", var.getAprilPath(), var.getAprilPrice(),
-                                var.getAprilStore(),
-                                var.getAprilOnline(), allStore, allOnline, totalofAll);
+                App April = new App("April", var.getAprilPath(), var.getSharedDataStructure());
                 Thread t4 = new Thread(April);
 
-                App May = new App("May", var.getMayPath(), var.getMayPrice(),
-                                var.getMayStore(),
-                                var.getMayOnline(), allStore, allOnline, totalofAll);
+                App May = new App("May", var.getMayPath(), var.getSharedDataStructure());
                 Thread t5 = new Thread(May);
 
-                App June = new App("June", var.getJunePath(), var.getJunePrice(),
-                                var.getJuneStore(),
-                                var.getJuneOnline(), allStore, allOnline, totalofAll);
+                App June = new App("June", var.getJunePath(), var.getSharedDataStructure());
                 Thread t6 = new Thread(June);
 
-                App July = new App("July", var.getJulyPath(), var.getJulyPrice(),
-                                var.getJulyStore(),
-                                var.getJulyOnline(), allStore, allOnline, totalofAll);
+                App July = new App("July", var.getJulyPath(), var.getSharedDataStructure());
                 Thread t7 = new Thread(July);
 
-                App August = new App("August", var.getAugustPath(), var.getAugustPrice(),
-                                var.getAugustStore(),
-                                var.getAugustOnline(), allStore, allOnline, totalofAll);
+                App August = new App("August", var.getAugustPath(), var.getSharedDataStructure());
                 Thread t8 = new Thread(August);
 
                 App September = new App("September", var.getSeptemberPath(),
-                                var.getSeptemberPrice(),
-                                var.getSeptemberStore(),
-                                var.getSeptemberOnline(), allStore, allOnline, totalofAll);
+                                var.getSharedDataStructure());
                 Thread t9 = new Thread(September);
 
-                App October = new App("October", var.getOctoberPath(), var.getOctoberPrice(),
-                                var.getOctoberStore(),
-                                var.getOctoberOnline(), allStore, allOnline, totalofAll);
+                App October = new App("October", var.getOctoberPath(), var.getSharedDataStructure());
                 Thread t10 = new Thread(October);
 
                 App November = new App("November", var.getNovemberPath(),
-                                var.getNovemberPrice(),
-                                var.getNovemberStore(),
-                                var.getNovemberOnline(), allStore, allOnline, totalofAll);
+                                var.getSharedDataStructure());
                 Thread t11 = new Thread(November);
 
                 App December = new App("December", var.getDecemberPath(),
-                                var.getDecemberPrice(),
-                                var.getDecemberStore(),
-                                var.getDecemberOnline(), allStore, allOnline, totalofAll);
+                                var.getSharedDataStructure());
                 Thread t12 = new Thread(December);
 
                 for (int i = 0; i < inputArray.length; i++) {
@@ -117,18 +91,20 @@ public class runmain {
                 t10.join();
                 t11.join();
                 t12.join();
-                for (int i = 0; i < totalofAll.size(); i++) {
-                        total += totalofAll.get(i);
+                System.out.println("All threads are finished.");
+                scan.close();
+                for (int i = 0; i < 144; i++) {
+                        storeSum += var.getSharedDataStructure().get(1).get(i)
+                                        * var.getSharedDataStructure().get(0).get(i);
                 }
-
-                for (int i = 0; i < allOnline.size(); i++) {
-                        storeSum += allStore.get(i);
-                        onlineSum += allOnline.get(i);
+                for (int i = 0; i < 144; i++) {
+                        onlineSum += var.getSharedDataStructure().get(2).get(i)
+                                        * var.getSharedDataStructure().get(0).get(i);
                 }
                 System.out.println("There are, ");
                 System.out.println("In-store: $" + storeSum);
                 System.out.println("Online: $" + onlineSum);
+                int total = storeSum + onlineSum;
                 System.out.println("$" + total + " worth of sales for all products");
         }
-
 }
