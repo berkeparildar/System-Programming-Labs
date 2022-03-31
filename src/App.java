@@ -1,11 +1,15 @@
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
+//import java.util.Scanner;
+import java.util.LinkedList;
 
 public class App implements Runnable {
-    Variables var = new Variables();
-    private static Scanner fileObserver;
+    static Variables var = new Variables();
+    // private static Scanner fileObserver;
+    private static BufferedReader fileBuffer;
     String month;
     String path;
     ArrayList<ArrayList<Integer>> sharedDataStructure = new ArrayList<>();
@@ -14,97 +18,56 @@ public class App implements Runnable {
         month = tMonth;
         path = tPath;
         sharedDataStructure = sharedC;
-        readCSV(path, sharedDataStructure);
     }
 
     public void run() {
-        System.out.println("Thread parsing " + month + " data.");
-        int monthlyStoreSale = monthlySale(month, sharedDataStructure, 1);
-        int monthlyOnlineSale = monthlySale(month, sharedDataStructure, 2);
+        synchronized (sharedDataStructure) {
+            System.out.println("Thread parsing " + month + " data.");
+            readCSV(path, sharedDataStructure);
+        }
+        int monthlyStoreSale = monthlySale(sharedDataStructure, 1);
+        int monthlyOnlineSale = monthlySale(sharedDataStructure, 2);
+        sum(sharedDataStructure, monthlyStoreSale, monthlyOnlineSale);
+        cleardata(sharedDataStructure);
         System.out.println(
-                month + " store sale: " + monthlyStoreSale + " --- " + month + " online sale: " + monthlyOnlineSale);
+                month + " store sale: " + monthlyStoreSale + " --- " + month + " online sale: "
+                        + monthlyOnlineSale);
+
+    }
+
+    public synchronized void cleardata(ArrayList<ArrayList<Integer>> sharedC) {
+        sharedC.get(0).clear();
+        sharedC.get(1).clear();
+        sharedC.get(2).clear();
     }
 
     public static void readCSV(String path, ArrayList<ArrayList<Integer>> sharedData) {
         try {
-            fileObserver = new Scanner(new File(path)).useDelimiter(",");
-        } catch (FileNotFoundException e) {
+            fileBuffer = new BufferedReader(new FileReader(new File(path)));
+            fileBuffer.readLine();
+            String line = "";
+            while ((line = fileBuffer.readLine()) != null) {
+                String[] contents = line.split(",");
+                sharedData.get(0).add(Integer.parseInt(contents[1]));
+                sharedData.get(1).add(Integer.parseInt(contents[2]));
+                sharedData.get(2).add(Integer.parseInt(contents[3]));
+            }
+        } catch (IOException e) {
             System.err.println("error");
-        }
-        fileObserver.nextLine();
-        while (fileObserver.hasNextLine()) {
-            String row = fileObserver.nextLine();
-            String[] contents = row.split(",");
-            sharedData.get(0).add(Integer.parseInt(contents[1]));
-            sharedData.get(1).add(Integer.parseInt(contents[2]));
-            sharedData.get(2).add(Integer.parseInt(contents[3]));
         }
     }
 
-    public static int monthlySale(String month, ArrayList<ArrayList<Integer>> arraylist, int index) {// method //
-                                                                                                     // calculating
+    public static int monthlySale(ArrayList<ArrayList<Integer>> arraylist, int index) {// method
         int sum = 0; // sales for a month.
-        if (month.equalsIgnoreCase("January")) {
-            for (int i = 0; i < 12; i++) {
-                int productSales = arraylist.get(index).get(i) * arraylist.get(0).get(i);
-                sum += productSales;
-            }
-        } else if (month.equalsIgnoreCase("February")) {
-            for (int i = 12; i < 24; i++) {
-                int productSales = arraylist.get(index).get(i) * arraylist.get(0).get(i);
-                sum += productSales;
-            }
-        } else if (month.equalsIgnoreCase("March")) {
-            for (int i = 24; i < 36; i++) {
-                int productSales = arraylist.get(index).get(i) * arraylist.get(0).get(i);
-                sum += productSales;
-            }
-        } else if (month.equalsIgnoreCase("April")) {
-            for (int i = 36; i < 48; i++) {
-                int productSales = arraylist.get(index).get(i) * arraylist.get(0).get(i);
-                sum += productSales;
-            }
-        } else if (month.equalsIgnoreCase("May")) {
-            for (int i = 48; i < 60; i++) {
-                int productSales = arraylist.get(index).get(i) * arraylist.get(0).get(i);
-                sum += productSales;
-            }
-        } else if (month.equalsIgnoreCase("June")) {
-            for (int i = 60; i < 72; i++) {
-                int productSales = arraylist.get(index).get(i) * arraylist.get(0).get(i);
-                sum += productSales;
-            }
-        } else if (month.equalsIgnoreCase("July")) {
-            for (int i = 72; i < 84; i++) {
-                int productSales = arraylist.get(index).get(i) * arraylist.get(0).get(i);
-                sum += productSales;
-            }
-        } else if (month.equalsIgnoreCase("August")) {
-            for (int i = 84; i < 96; i++) {
-                int productSales = arraylist.get(index).get(i) * arraylist.get(0).get(i);
-                sum += productSales;
-            }
-        } else if (month.equalsIgnoreCase("September")) {
-            for (int i = 96; i < 108; i++) {
-                int productSales = arraylist.get(index).get(i) * arraylist.get(0).get(i);
-                sum += productSales;
-            }
-        } else if (month.equalsIgnoreCase("October")) {
-            for (int i = 108; i < 120; i++) {
-                int productSales = arraylist.get(index).get(i) * arraylist.get(0).get(i);
-                sum += productSales;
-            }
-        } else if (month.equalsIgnoreCase("November")) {
-            for (int i = 120; i < 132; i++) {
-                int productSales = arraylist.get(index).get(i) * arraylist.get(0).get(i);
-                sum += productSales;
-            }
-        } else if (month.equalsIgnoreCase("December")) {
-            for (int i = 132; i < 144; i++) {
-                int productSales = arraylist.get(index).get(i) * arraylist.get(0).get(i);
-                sum += productSales;
-            }
+        for (int i = 0; i < 12; i++) {
+            int productSales = arraylist.get(index).get(i) * arraylist.get(0).get(i);
+            sum += productSales;
         }
         return sum;
+    }
+
+    public static void sum(ArrayList<ArrayList<Integer>> arraylist, int a, int b) {
+        arraylist.get(3).add(a);
+        arraylist.get(4).add(b);
     }
 }

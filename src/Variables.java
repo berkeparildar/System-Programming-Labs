@@ -17,24 +17,16 @@ public class Variables {
     ArrayList<Integer> priceData = new ArrayList<>();
     ArrayList<Integer> inStoreData = new ArrayList<>();
     ArrayList<Integer> onlineData = new ArrayList<>();
+    ArrayList<Integer> totalOnline = new ArrayList<>();
+    ArrayList<Integer> totalStore = new ArrayList<>();
     ArrayList<ArrayList<Integer>> sharedDataStructure = new ArrayList<>();
-
-    public ArrayList<Integer> getPriceData() {
-        return priceData;
-    }
-
-    public ArrayList<Integer> getInStoreData() {
-        return inStoreData;
-    }
-
-    public ArrayList<Integer> getOnlineData() {
-        return onlineData;
-    }
 
     public ArrayList<ArrayList<Integer>> getSharedDataStructure() {
         sharedDataStructure.add(priceData);
         sharedDataStructure.add(inStoreData);
         sharedDataStructure.add(onlineData);
+        sharedDataStructure.add(totalStore);
+        sharedDataStructure.add(totalOnline);
         return sharedDataStructure;
     }
 
