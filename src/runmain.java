@@ -10,12 +10,13 @@ public class runmain {
                 Scanner scan = new Scanner(System.in);
                 int storeSum = 0;
                 int onlineSum = 0;
-                int totalmonthlyproSum = 0;
+                int totalInStoreProduct = 0;
+                int totalOnlineProduct = 0;
                 String productInput;
                 System.out.println("Please enter the name of the files that will be calculated in the directory.");
                 String input = scan.nextLine();
                 String[] inputArray = input.split(" ");
-                System.out.println("Which product do you want to seacrc?");
+                System.out.println("Which product do you want to search");
                 productInput = scan.nextLine();
 
                 App January = new App("January", var.getJanuaryPath(),
@@ -110,14 +111,22 @@ public class runmain {
                 for (int i = 0; i < inputArray.length; i++) {
                         onlineSum += sharedDataStructure.get(4).get(i);
                 }
-                // for (int i = 0; i < inputArray.length; i++) {
-                // totalmonthlyproSum += sharedDataStructure.get(5).get(i);
-                // } WRONG
+                for (int i = 0; i < inputArray.length; i++) {
+                        totalInStoreProduct += sharedDataStructure.get(5).get(i);
+                }
+                for (int i = 0; i < inputArray.length; i++) {
+                        totalOnlineProduct += sharedDataStructure.get(6).get(i);
+                }
                 System.out.println("There are, ");
                 System.out.println("In-store: $" + storeSum);
                 System.out.println("Online: $" + onlineSum);
                 int total = storeSum + onlineSum;
                 System.out.println("$" + total + " worth of sales for all products");
-                System.out.println("total " + productInput + " = " + totalmonthlyproSum);
+                System.out.println();
+                System.out.println("For the product " + productInput.toUpperCase());
+                System.out.println("In-store sales: " + totalInStoreProduct);
+                System.out.println("Online sales: " + totalOnlineProduct);
+                int totalProduct = totalInStoreProduct + totalOnlineProduct;
+                System.out.println("Total sales: " + totalProduct);
         }
 }

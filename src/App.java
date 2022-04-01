@@ -5,13 +5,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class App implements Runnable {
-    static int monthProSum = 0;
+    static int productSum = 0;
     static Variables var = new Variables();
     private static BufferedReader fileBuffer;
     String month;
     String path;
     String product;
     ArrayList<ArrayList<Integer>> sharedDataStructure = new ArrayList<>();
+    int inputCount = 0;
 
     public App(String tMonth, String tPath, ArrayList<ArrayList<Integer>> sharedC, String tProduct) {
         month = tMonth;
@@ -27,13 +28,15 @@ public class App implements Runnable {
         }
         int monthlyStoreSale = monthlySale(sharedDataStructure, 1);
         int monthlyOnlineSale = monthlySale(sharedDataStructure, 2);
-        int monthlyProduct = monthlySaleProduct(sharedDataStructure, 1, product);
-        int monthlyOProduct = monthlySaleProduct(sharedDataStructure, 2, product);
-        sum(sharedDataStructure, monthlyStoreSale, monthlyOnlineSale, monthlyProduct);
+        int monthlyProduct = monthlySaleProduct(sharedDataStructure, product, 1);
+        productSum = 0;
+        int monthlyOProduct = monthlySaleProduct(sharedDataStructure, product, 2);
+        sum(sharedDataStructure, monthlyStoreSale, monthlyOnlineSale, monthlyProduct, monthlyOProduct);
         cleardata(sharedDataStructure);
         System.out.println(
                 month + " store sale: " + "$" + monthlyStoreSale + " --- " + month + " online sale: "
                         + "$" + monthlyOnlineSale);
+        inputCount++;
     }
 
     public static void readCSV(String path, ArrayList<ArrayList<Integer>> sharedData) {
@@ -61,32 +64,27 @@ public class App implements Runnable {
         return sum;
     }
 
-    public static int monthlySaleProduct(ArrayList<ArrayList<Integer>> sharedData, int index, String product) {// method
-        int sumA = sharedData.get(index).get(0) * sharedData.get(0).get(0);
-        int sumB = sharedData.get(index).get(1) * sharedData.get(0).get(1);
-        int sumC = sharedData.get(index).get(2) * sharedData.get(0).get(2);
-        if (product.equals("A")) {
-            monthProSum += sumA;
+    public static int monthlySaleProduct(ArrayList<ArrayList<Integer>> sharedData, String product, int index) {// method
+        String[] products = { "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M" };
+        for (int i = 0; i < 12; i++) {
+            if (products[i].equalsIgnoreCase(product)) {
+                productSum += sharedData.get(index).get(i) * sharedData.get(0).get(i);
+            }
         }
-        if (product.equals("B")) {
-            monthProSum += sumB;
-        }
-        if (product.equals("c")) {
-            monthProSum += sumC;
-        }
-        return monthProSum;
-
+        return productSum;
     }
 
-    public static void sum(ArrayList<ArrayList<Integer>> sharedData, int a, int b, int c) {
+    public static void sum(ArrayList<ArrayList<Integer>> sharedData, int a, int b, int c, int d) {
         sharedData.get(3).add(a);
         sharedData.get(4).add(b);
         sharedData.get(5).add(c);
+        sharedData.get(6).add(d);
     }
 
     public synchronized void cleardata(ArrayList<ArrayList<Integer>> sharedC) {
         sharedC.get(0).clear();
         sharedC.get(1).clear();
         sharedC.get(2).clear();
+        productSum = 0;
     }
 }

@@ -26,13 +26,13 @@ public class Variables {
     ArrayList<ArrayList<Integer>> sharedDataStructure = new ArrayList<>();
 
     public ArrayList<ArrayList<Integer>> getSharedDataStructure() {
-        sharedDataStructure.add(priceData);
-        sharedDataStructure.add(inStoreData);
-        sharedDataStructure.add(onlineData);
-        sharedDataStructure.add(totalStore);
-        sharedDataStructure.add(totalOnline);
-        sharedDataStructure.add(totalStorePerMonth);
-        sharedDataStructure.add(totalOnlinePerMonth);
+        sharedDataStructure.add(priceData); // 0
+        sharedDataStructure.add(inStoreData); // 1
+        sharedDataStructure.add(onlineData); // 2
+        sharedDataStructure.add(totalStore); // 3
+        sharedDataStructure.add(totalOnline); // 4
+        sharedDataStructure.add(totalStorePerMonth); // 5
+        sharedDataStructure.add(totalOnlinePerMonth); // 6
         return sharedDataStructure;
     }
 
