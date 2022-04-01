@@ -10,94 +10,98 @@ public class runmain {
                 Scanner scan = new Scanner(System.in);
                 int storeSum = 0;
                 int onlineSum = 0;
+                int totalmonthlyproSum = 0;
+                String productInput;
                 System.out.println("Please enter the name of the files that will be calculated in the directory.");
                 String input = scan.nextLine();
                 String[] inputArray = input.split(" ");
+                System.out.println("Which product do you want to seacrc?");
+                productInput = scan.nextLine();
 
                 App January = new App("January", var.getJanuaryPath(),
-                                sharedDataStructure);
-                Thread t1 = new Thread(January);
+                                sharedDataStructure, productInput);
+                Thread januaryThread = new Thread(January);
 
                 App February = new App("February", var.getFebruaryPath(),
-                                sharedDataStructure);
-                Thread t2 = new Thread(February);
+                                sharedDataStructure, productInput);
+                Thread februaryThread = new Thread(February);
 
-                App March = new App("March", var.getMarchPath(), sharedDataStructure);
-                Thread t3 = new Thread(March);
+                App March = new App("March", var.getMarchPath(), sharedDataStructure, productInput);
+                Thread marchThread = new Thread(March);
 
-                App April = new App("April", var.getAprilPath(), sharedDataStructure);
-                Thread t4 = new Thread(April);
+                App April = new App("April", var.getAprilPath(), sharedDataStructure, productInput);
+                Thread aprilThread = new Thread(April);
 
-                App May = new App("May", var.getMayPath(), sharedDataStructure);
-                Thread t5 = new Thread(May);
+                App May = new App("May", var.getMayPath(), sharedDataStructure, productInput);
+                Thread mayThread = new Thread(May);
 
-                App June = new App("June", var.getJunePath(), sharedDataStructure);
-                Thread t6 = new Thread(June);
+                App June = new App("June", var.getJunePath(), sharedDataStructure, productInput);
+                Thread juneThread = new Thread(June);
 
-                App July = new App("July", var.getJulyPath(), sharedDataStructure);
-                Thread t7 = new Thread(July);
+                App July = new App("July", var.getJulyPath(), sharedDataStructure, productInput);
+                Thread julyThread = new Thread(July);
 
-                App August = new App("August", var.getAugustPath(), sharedDataStructure);
-                Thread t8 = new Thread(August);
+                App August = new App("August", var.getAugustPath(), sharedDataStructure, productInput);
+                Thread augustThread = new Thread(August);
 
                 App September = new App("September", var.getSeptemberPath(),
-                                sharedDataStructure);
-                Thread t9 = new Thread(September);
+                                sharedDataStructure, productInput);
+                Thread septemberThread = new Thread(September);
 
-                App October = new App("October", var.getOctoberPath(), sharedDataStructure);
-                Thread t10 = new Thread(October);
+                App October = new App("October", var.getOctoberPath(), sharedDataStructure, productInput);
+                Thread octoberThread = new Thread(October);
 
                 App November = new App("November", var.getNovemberPath(),
-                                sharedDataStructure);
-                Thread t11 = new Thread(November);
+                                sharedDataStructure, productInput);
+                Thread novemberThread = new Thread(November);
 
                 App December = new App("December", var.getDecemberPath(),
-                                sharedDataStructure);
-                Thread t12 = new Thread(December);
+                                sharedDataStructure, productInput);
+                Thread decemberThread = new Thread(December);
 
                 for (int i = 0; i < inputArray.length; i++) {
                         if (inputArray[i].equalsIgnoreCase("01-January.csv")) {
-                                t1.start();
+                                januaryThread.start();
                         } else if (inputArray[i].equalsIgnoreCase("02-February.csv")) {
-                                t2.start();
+                                februaryThread.start();
                         } else if (inputArray[i].equalsIgnoreCase("03-March.csv")) {
-                                t3.start();
+                                marchThread.start();
                         } else if (inputArray[i].equalsIgnoreCase("04-April.csv")) {
-                                t4.start();
+                                aprilThread.start();
                         } else if (inputArray[i].equalsIgnoreCase("05-May.csv")) {
-                                t5.start();
+                                mayThread.start();
                         } else if (inputArray[i].equalsIgnoreCase("06-June.csv")) {
-                                t6.start();
+                                juneThread.start();
                         } else if (inputArray[i].equalsIgnoreCase("07-July.csv")) {
-                                t7.start();
+                                julyThread.start();
                         } else if (inputArray[i].equalsIgnoreCase("08-August.csv")) {
-                                t8.start();
+                                augustThread.start();
                         } else if (inputArray[i].equalsIgnoreCase("09-September.csv")) {
-                                t9.start();
+                                septemberThread.start();
                         } else if (inputArray[i].equalsIgnoreCase("10-October.csv")) {
-                                t10.start();
+                                octoberThread.start();
                         } else if (inputArray[i].equalsIgnoreCase("11-November.csv")) {
-                                t11.start();
+                                novemberThread.start();
                         } else if (inputArray[i].equalsIgnoreCase("12-December.csv")) {
-                                t12.start();
+                                decemberThread.start();
                         } else {
                                 System.out.println(
                                                 "Couldn't find the input, try again \nFor exapmle: 02-February.csv");
                                 System.exit(0);
                         }
                 }
-                t1.join();
-                t2.join();
-                t3.join();
-                t4.join();
-                t5.join();
-                t6.join();
-                t7.join();
-                t8.join();
-                t9.join();
-                t10.join();
-                t11.join();
-                t12.join();
+                januaryThread.join();
+                februaryThread.join();
+                marchThread.join();
+                aprilThread.join();
+                mayThread.join();
+                juneThread.join();
+                julyThread.join();
+                augustThread.join();
+                septemberThread.join();
+                octoberThread.join();
+                novemberThread.join();
+                decemberThread.join();
                 System.out.println("All threads are finished.");
                 scan.close();
                 for (int i = 0; i < inputArray.length; i++) {
@@ -106,10 +110,14 @@ public class runmain {
                 for (int i = 0; i < inputArray.length; i++) {
                         onlineSum += sharedDataStructure.get(4).get(i);
                 }
+                // for (int i = 0; i < inputArray.length; i++) {
+                // totalmonthlyproSum += sharedDataStructure.get(5).get(i);
+                // } WRONG
                 System.out.println("There are, ");
                 System.out.println("In-store: $" + storeSum);
                 System.out.println("Online: $" + onlineSum);
                 int total = storeSum + onlineSum;
                 System.out.println("$" + total + " worth of sales for all products");
+                System.out.println("total " + productInput + " = " + totalmonthlyproSum);
         }
 }
