@@ -13,6 +13,7 @@ public class runmain {
                 System.out.println("Please enter the name of the files that will be calculated in the directory.");
                 String input = scan.nextLine();
                 String[] inputArray = input.split(" ");
+
                 App January = new App("January", var.getJanuaryPath(),
                                 sharedDataStructure);
                 Thread t1 = new Thread(January);
@@ -79,6 +80,10 @@ public class runmain {
                                 t11.start();
                         } else if (inputArray[i].equalsIgnoreCase("12-December.csv")) {
                                 t12.start();
+                        } else {
+                                System.out.println(
+                                                "Couldn't find the input, try again \nFor exapmle: 02-February.csv");
+                                System.exit(0);
                         }
                 }
                 t1.join();
@@ -95,10 +100,10 @@ public class runmain {
                 t12.join();
                 System.out.println("All threads are finished.");
                 scan.close();
-                for (int i = 0; i < 12; i++) {
+                for (int i = 0; i < inputArray.length; i++) {
                         storeSum += sharedDataStructure.get(3).get(i);
                 }
-                for (int i = 0; i < 12; i++) {
+                for (int i = 0; i < inputArray.length; i++) {
                         onlineSum += sharedDataStructure.get(4).get(i);
                 }
                 System.out.println("There are, ");

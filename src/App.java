@@ -3,12 +3,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-//import java.util.Scanner;
-import java.util.LinkedList;
 
 public class App implements Runnable {
     static Variables var = new Variables();
-    // private static Scanner fileObserver;
     private static BufferedReader fileBuffer;
     String month;
     String path;
@@ -30,15 +27,9 @@ public class App implements Runnable {
         sum(sharedDataStructure, monthlyStoreSale, monthlyOnlineSale);
         cleardata(sharedDataStructure);
         System.out.println(
-                month + " store sale: " + monthlyStoreSale + " --- " + month + " online sale: "
-                        + monthlyOnlineSale);
+                month + " store sale: " + "$" + monthlyStoreSale + " --- " + month + " online sale: "
+                        + "$" + monthlyOnlineSale);
 
-    }
-
-    public synchronized void cleardata(ArrayList<ArrayList<Integer>> sharedC) {
-        sharedC.get(0).clear();
-        sharedC.get(1).clear();
-        sharedC.get(2).clear();
     }
 
     public static void readCSV(String path, ArrayList<ArrayList<Integer>> sharedData) {
@@ -53,21 +44,27 @@ public class App implements Runnable {
                 sharedData.get(2).add(Integer.parseInt(contents[3]));
             }
         } catch (IOException e) {
-            System.err.println("error");
+            System.err.println("Error");
         }
     }
 
-    public static int monthlySale(ArrayList<ArrayList<Integer>> arraylist, int index) {// method
+    public static int monthlySale(ArrayList<ArrayList<Integer>> sharedData, int index) {// method
         int sum = 0; // sales for a month.
         for (int i = 0; i < 12; i++) {
-            int productSales = arraylist.get(index).get(i) * arraylist.get(0).get(i);
+            int productSales = sharedData.get(index).get(i) * sharedData.get(0).get(i);
             sum += productSales;
         }
         return sum;
     }
 
-    public static void sum(ArrayList<ArrayList<Integer>> arraylist, int a, int b) {
-        arraylist.get(3).add(a);
-        arraylist.get(4).add(b);
+    public static void sum(ArrayList<ArrayList<Integer>> sharedData, int a, int b) {
+        sharedData.get(3).add(a);
+        sharedData.get(4).add(b);
+    }
+
+    public synchronized void cleardata(ArrayList<ArrayList<Integer>> sharedC) {
+        sharedC.get(0).clear();
+        sharedC.get(1).clear();
+        sharedC.get(2).clear();
     }
 }

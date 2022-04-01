@@ -30,47 +30,6 @@ public class Variables {
         return sharedDataStructure;
     }
 
-    // ****************************OLD DATA
-    // STRUCTURES********************************
-    // ArrayList<Integer> januaryPrice = new ArrayList<>();
-    // ArrayList<Integer> januaryStore = new ArrayList<>();
-    // ArrayList<Integer> januaryOnline = new ArrayList<>();
-    // ArrayList<Integer> februaryPrice = new ArrayList<>();
-    // ArrayList<Integer> februaryStore = new ArrayList<>();
-    // ArrayList<Integer> februaryOnline = new ArrayList<>();
-    // ArrayList<Integer> marchPrice = new ArrayList<>();
-    // ArrayList<Integer> marchStore = new ArrayList<>();
-    // ArrayList<Integer> marchOnline = new ArrayList<>();
-    // ArrayList<Integer> aprilPrice = new ArrayList<>();
-    // ArrayList<Integer> aprilStore = new ArrayList<>();
-    // ArrayList<Integer> aprilOnline = new ArrayList<>();
-    // ArrayList<Integer> mayPrice = new ArrayList<>();
-    // ArrayList<Integer> mayStore = new ArrayList<>();
-    // ArrayList<Integer> mayOnline = new ArrayList<>();
-    // ArrayList<Integer> junePrice = new ArrayList<>();
-    // ArrayList<Integer> juneStore = new ArrayList<>();
-    // ArrayList<Integer> juneOnline = new ArrayList<>();
-    // ArrayList<Integer> julyPrice = new ArrayList<>();
-    // ArrayList<Integer> julyStore = new ArrayList<>();
-    // ArrayList<Integer> julyOnline = new ArrayList<>();
-    // ArrayList<Integer> augustPrice = new ArrayList<>();
-    // ArrayList<Integer> augustStore = new ArrayList<>();
-    // ArrayList<Integer> augustOnline = new ArrayList<>();
-    // ArrayList<Integer> septemberPrice = new ArrayList<>();
-    // ArrayList<Integer> septemberStore = new ArrayList<>();
-    // ArrayList<Integer> septemberOnline = new ArrayList<>();
-    // ArrayList<Integer> octoberPrice = new ArrayList<>();
-    // ArrayList<Integer> octoberStore = new ArrayList<>();
-    // ArrayList<Integer> octoberOnline = new ArrayList<>();
-    // ArrayList<Integer> novemberPrice = new ArrayList<>();
-    // ArrayList<Integer> novemberStore = new ArrayList<>();
-    // ArrayList<Integer> novemberOnline = new ArrayList<>();
-    // ArrayList<Integer> decemberPrice = new ArrayList<>();
-    // ArrayList<Integer> decemberStore = new ArrayList<>();
-    // ArrayList<Integer> decemberOnline = new ArrayList<>();
-    // ****************************OLD DATA
-    // STRUCTURES********************************
-
     public String getJanuaryPath() {
         return januaryPath;
     }
@@ -118,6 +77,47 @@ public class Variables {
     public String getDecemberPath() {
         return decemberPath;
     }
+
+    // ****************************OLD DATA
+    // STRUCTURES********************************
+    // ArrayList<Integer> januaryPrice = new ArrayList<>();
+    // ArrayList<Integer> januaryStore = new ArrayList<>();
+    // ArrayList<Integer> januaryOnline = new ArrayList<>();
+    // ArrayList<Integer> februaryPrice = new ArrayList<>();
+    // ArrayList<Integer> februaryStore = new ArrayList<>();
+    // ArrayList<Integer> februaryOnline = new ArrayList<>();
+    // ArrayList<Integer> marchPrice = new ArrayList<>();
+    // ArrayList<Integer> marchStore = new ArrayList<>();
+    // ArrayList<Integer> marchOnline = new ArrayList<>();
+    // ArrayList<Integer> aprilPrice = new ArrayList<>();
+    // ArrayList<Integer> aprilStore = new ArrayList<>();
+    // ArrayList<Integer> aprilOnline = new ArrayList<>();
+    // ArrayList<Integer> mayPrice = new ArrayList<>();
+    // ArrayList<Integer> mayStore = new ArrayList<>();
+    // ArrayList<Integer> mayOnline = new ArrayList<>();
+    // ArrayList<Integer> junePrice = new ArrayList<>();
+    // ArrayList<Integer> juneStore = new ArrayList<>();
+    // ArrayList<Integer> juneOnline = new ArrayList<>();
+    // ArrayList<Integer> julyPrice = new ArrayList<>();
+    // ArrayList<Integer> julyStore = new ArrayList<>();
+    // ArrayList<Integer> julyOnline = new ArrayList<>();
+    // ArrayList<Integer> augustPrice = new ArrayList<>();
+    // ArrayList<Integer> augustStore = new ArrayList<>();
+    // ArrayList<Integer> augustOnline = new ArrayList<>();
+    // ArrayList<Integer> septemberPrice = new ArrayList<>();
+    // ArrayList<Integer> septemberStore = new ArrayList<>();
+    // ArrayList<Integer> septemberOnline = new ArrayList<>();
+    // ArrayList<Integer> octoberPrice = new ArrayList<>();
+    // ArrayList<Integer> octoberStore = new ArrayList<>();
+    // ArrayList<Integer> octoberOnline = new ArrayList<>();
+    // ArrayList<Integer> novemberPrice = new ArrayList<>();
+    // ArrayList<Integer> novemberStore = new ArrayList<>();
+    // ArrayList<Integer> novemberOnline = new ArrayList<>();
+    // ArrayList<Integer> decemberPrice = new ArrayList<>();
+    // ArrayList<Integer> decemberStore = new ArrayList<>();
+    // ArrayList<Integer> decemberOnline = new ArrayList<>();
+    // ****************************OLD DATA
+    // STRUCTURES********************************
 
     // ***************************OLD GET METHODS*******************************
     // public ArrayList<Integer> getJanuaryPrice() {
