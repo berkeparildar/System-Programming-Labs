@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class App implements Runnable {
+public class myRunnable implements Runnable {
     static int productSum = 0;
     static Data var = new Data();
     private static BufferedReader fileBuffer;
@@ -18,7 +18,7 @@ public class App implements Runnable {
     ArrayList<ArrayList<Integer>> sharedDataStructure = new ArrayList<>();
     Map<String, Integer> map = Collections.synchronizedMap(new HashMap<String, Integer>());
 
-    public App(String tMonth, String tPath, ArrayList<ArrayList<Integer>> sharedC, String tProduct,
+    public myRunnable(String tMonth, String tPath, ArrayList<ArrayList<Integer>> sharedC, String tProduct,
             Map<String, Integer> tMap) {
         month = tMonth;
         path = tPath;

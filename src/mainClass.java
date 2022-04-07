@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class runmain {
+public class mainClass {
 
         public static void main(String[] args) throws InterruptedException {
                 Data var = new Data();
@@ -28,43 +28,43 @@ public class runmain {
                 System.out.println("Choose a specific month for the product information, use lowercase letters");
                 monthInput = scan.nextLine();
 
-                App January = new App("January", var.getJanuaryPath(),
+                myRunnable January = new myRunnable("January", var.getJanuaryPath(),
                                 sharedDataStructure, productInput, map);
 
-                App February = new App("February", var.getFebruaryPath(),
+                myRunnable February = new myRunnable("February", var.getFebruaryPath(),
                                 sharedDataStructure, productInput, map);
 
-                App March = new App("March", var.getMarchPath(), sharedDataStructure,
+                myRunnable March = new myRunnable("March", var.getMarchPath(), sharedDataStructure,
                                 productInput, map);
 
-                App April = new App("April", var.getAprilPath(), sharedDataStructure,
+                myRunnable April = new myRunnable("April", var.getAprilPath(), sharedDataStructure,
                                 productInput, map);
 
-                App May = new App("May", var.getMayPath(), sharedDataStructure,
+                myRunnable May = new myRunnable("May", var.getMayPath(), sharedDataStructure,
                                 productInput, map);
 
-                App June = new App("June", var.getJunePath(), sharedDataStructure,
+                myRunnable June = new myRunnable("June", var.getJunePath(), sharedDataStructure,
                                 productInput, map);
 
-                App July = new App("July", var.getJulyPath(), sharedDataStructure,
+                myRunnable July = new myRunnable("July", var.getJulyPath(), sharedDataStructure,
                                 productInput, map);
 
-                App August = new App("August", var.getAugustPath(), sharedDataStructure,
+                myRunnable August = new myRunnable("August", var.getAugustPath(), sharedDataStructure,
                                 productInput, map);
 
-                App September = new App("September", var.getSeptemberPath(),
+                myRunnable September = new myRunnable("September", var.getSeptemberPath(),
                                 sharedDataStructure, productInput, map);
 
-                App October = new App("October", var.getOctoberPath(), sharedDataStructure,
+                myRunnable October = new myRunnable("October", var.getOctoberPath(), sharedDataStructure,
                                 productInput, map);
 
-                App November = new App("November", var.getNovemberPath(),
+                myRunnable November = new myRunnable("November", var.getNovemberPath(),
                                 sharedDataStructure, productInput, map);
 
-                App December = new App("December", var.getDecemberPath(),
+                myRunnable December = new myRunnable("December", var.getDecemberPath(),
                                 sharedDataStructure, productInput, map);
 
-                ArrayList<App> appArray = new ArrayList<>();
+                ArrayList<myRunnable> appArray = new ArrayList<>();
                 for (int i = 0; i < inputArray.length; i++) {
                         if (inputArray[i].equalsIgnoreCase("01-January.csv")) {
                                 appArray.add(January);
