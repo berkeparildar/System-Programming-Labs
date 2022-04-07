@@ -3,22 +3,28 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class App implements Runnable {
     static int productSum = 0;
-    static Variables var = new Variables();
+    static Data var = new Data();
     private static BufferedReader fileBuffer;
     String month;
     String path;
     String product;
+    static volatile int intIndicator = 0;
     ArrayList<ArrayList<Integer>> sharedDataStructure = new ArrayList<>();
-    int inputCount = 0;
+    Map<String, Integer> map = Collections.synchronizedMap(new HashMap<String, Integer>());
 
-    public App(String tMonth, String tPath, ArrayList<ArrayList<Integer>> sharedC, String tProduct) {
+    public App(String tMonth, String tPath, ArrayList<ArrayList<Integer>> sharedC, String tProduct,
+            Map<String, Integer> tMap) {
         month = tMonth;
         path = tPath;
         sharedDataStructure = sharedC;
         product = tProduct;
+        map = tMap;
     }
 
     public void run() {
@@ -28,6 +34,8 @@ public class App implements Runnable {
         }
         int monthlyStoreSale = monthlySale(sharedDataStructure, 1);
         int monthlyOnlineSale = monthlySale(sharedDataStructure, 2);
+        writeMap(month, intIndicator, map);
+        intIndicator++;
         int monthlyProduct = monthlySaleProduct(sharedDataStructure, product, 1);
         productSum = 0;
         int monthlyOProduct = monthlySaleProduct(sharedDataStructure, product, 2);
@@ -36,7 +44,6 @@ public class App implements Runnable {
         System.out.println(
                 month + " store sale: " + "$" + monthlyStoreSale + " --- " + month + " online sale: "
                         + "$" + monthlyOnlineSale);
-        inputCount++;
     }
 
     public static void readCSV(String path, ArrayList<ArrayList<Integer>> sharedData) {
@@ -55,6 +62,10 @@ public class App implements Runnable {
         }
     }
 
+    public static void writeMap(String month, int index, Map<String, Integer> map) {
+        map.put(month.toLowerCase(), index);
+    }
+
     public static int monthlySale(ArrayList<ArrayList<Integer>> sharedData, int index) {// method
         int sum = 0; // sales for a month.
         for (int i = 0; i < 12; i++) {
@@ -64,14 +75,17 @@ public class App implements Runnable {
         return sum;
     }
 
-    public static int monthlySaleProduct(ArrayList<ArrayList<Integer>> sharedData, String product, int index) {// method
+    public static synchronized int monthlySaleProduct(ArrayList<ArrayList<Integer>> sharedData, String product,
+            int index) {// method
         String[] products = { "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M" };
+        int sum = 0;
         for (int i = 0; i < 12; i++) {
             if (products[i].equalsIgnoreCase(product)) {
-                productSum += sharedData.get(index).get(i) * sharedData.get(0).get(i);
+                productSum = sharedData.get(index).get(i) * sharedData.get(0).get(i);
+                sum = productSum;
             }
         }
-        return productSum;
+        return sum;
     }
 
     public static void sum(ArrayList<ArrayList<Integer>> sharedData, int a, int b, int c, int d) {

@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Variables {
+public class Data {
     String januaryPath = "src\\01-January.csv";
     String februaryPath = "src\\02-February.csv";
     String marchPath = "src\\03-March.csv";
@@ -21,9 +23,8 @@ public class Variables {
     ArrayList<Integer> totalStore = new ArrayList<>();
     ArrayList<Integer> totalStorePerMonth = new ArrayList<>();
     ArrayList<Integer> totalOnlinePerMonth = new ArrayList<>();
-
-    ArrayList<String> products = new ArrayList<>();
     ArrayList<ArrayList<Integer>> sharedDataStructure = new ArrayList<>();
+    Map<String, Integer> indicatorMap = new HashMap<>();
 
     public ArrayList<ArrayList<Integer>> getSharedDataStructure() {
         sharedDataStructure.add(priceData); // 0
@@ -34,6 +35,10 @@ public class Variables {
         sharedDataStructure.add(totalStorePerMonth); // 5
         sharedDataStructure.add(totalOnlinePerMonth); // 6
         return sharedDataStructure;
+    }
+
+    public Map<String, Integer> getIndicatorMap() {
+        return indicatorMap;
     }
 
     public String getJanuaryPath() {
