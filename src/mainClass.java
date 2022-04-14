@@ -107,20 +107,13 @@ public class mainClass {
                 }
                 System.out.println("All thread are finished");
                 scan.close();
+                System.out.println();
 
-                for (int i = 0; i < inputArray.length; i++) {
-                        storeSum += sharedDataStructure.get(3).get(i);
-                }
-                for (int i = 0; i < inputArray.length; i++) {
-                        onlineSum += sharedDataStructure.get(4).get(i);
-                }
+                storeSum = sharedDataStructure.get(7).get(sharedDataStructure.get(7).size() - 1);
+                onlineSum = sharedDataStructure.get(8).get(sharedDataStructure.get(8).size() - 1);
+                totalInStoreProduct = sharedDataStructure.get(9).get(sharedDataStructure.get(9).size() - 1);
+                totalOnlineProduct = sharedDataStructure.get(10).get(sharedDataStructure.get(10).size() - 1);
 
-                for (int i = 0; i < inputArray.length; i++) {
-                        totalInStoreProduct += sharedDataStructure.get(5).get(i);
-                }
-                for (int i = 0; i < inputArray.length; i++) {
-                        totalOnlineProduct += sharedDataStructure.get(6).get(i);
-                }
                 System.out.println();
                 System.out.println("There are, ");
                 System.out.println("In-store: $" + storeSum);

@@ -11,6 +11,7 @@ public class myRunnable implements Runnable {
     static int productSum = 0;
     static Data var = new Data();
     private static BufferedReader fileBuffer;
+    int yy;
     String month;
     String path;
     String product;
@@ -89,10 +90,30 @@ public class myRunnable implements Runnable {
     }
 
     public static void sum(ArrayList<ArrayList<Integer>> sharedData, int a, int b, int c, int d) {
+        int sumA = 0;
         sharedData.get(3).add(a);
+        for (int i = 0; i < sharedData.get(3).size(); i++) {
+            sumA += sharedData.get(3).get(i);
+        }
+        sharedData.get(7).add(sumA);
         sharedData.get(4).add(b);
+        int sumB = 0;
+        for (int i = 0; i < sharedData.get(3).size(); i++) {
+            sumB += sharedData.get(4).get(i);
+        }
+        sharedData.get(8).add(sumB);
         sharedData.get(5).add(c);
+        int sumC = 0;
+        for (int i = 0; i < sharedData.get(3).size(); i++) {
+            sumC += sharedData.get(5).get(i);
+        }
+        sharedData.get(9).add(sumC);
         sharedData.get(6).add(d);
+        int sumD = 0;
+        for (int i = 0; i < sharedData.get(3).size(); i++) {
+            sumD += sharedData.get(6).get(i);
+        }
+        sharedData.get(10).add(sumD);
     }
 
     public synchronized void cleardata(ArrayList<ArrayList<Integer>> sharedC) {
