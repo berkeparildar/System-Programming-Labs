@@ -5,121 +5,116 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class myRunnable implements Runnable {
     static int productSum = 0;
-    static Data var = new Data();
+    static int storeSum = 0;
+    static int onlineSum = 0;
+    static volatile int index = 1;
+    static AtomicInteger indicator = new AtomicInteger(0);
+    static String product;
     private static BufferedReader fileBuffer;
-    int yy;
     String month;
     String path;
-    String product;
-    static volatile int intIndicator = 0;
-    ArrayList<ArrayList<Integer>> sharedDataStructure = new ArrayList<>();
-    Map<String, Integer> map = Collections.synchronizedMap(new HashMap<String, Integer>());
+    List<Map<String, Integer>> SharedDataV2 = Collections.synchronizedList(new LinkedList<Map<String, Integer>>());
+    ArrayList<String> tempString = new ArrayList<>();
+    static Map<String, Integer> Saaaa = Collections.synchronizedMap(new HashMap<>());
+    static ReentrantLock lock = new ReentrantLock();
 
-    public myRunnable(String tMonth, String tPath, ArrayList<ArrayList<Integer>> sharedC, String tProduct,
-            Map<String, Integer> tMap) {
+    public myRunnable(String tMonth, String tPath,
+            List<Map<String, Integer>> SharedDataV2vvv) {
         month = tMonth;
         path = tPath;
-        sharedDataStructure = sharedC;
-        product = tProduct;
-        map = tMap;
+        SharedDataV2 = SharedDataV2vvv;
     }
 
     public void run() {
-        synchronized (sharedDataStructure) {
+        synchronized (SharedDataV2) {
+            indicator.getAndIncrement();
             System.out.println("Thread parsing " + month + " data.");
-            readCSV(path, sharedDataStructure);
+            readCSV(path, SharedDataV2, tempString);
         }
-        int monthlyStoreSale = monthlySale(sharedDataStructure, 1);
-        int monthlyOnlineSale = monthlySale(sharedDataStructure, 2);
-        writeMap(month, intIndicator, map);
-        intIndicator++;
-        int monthlyProduct = monthlySaleProduct(sharedDataStructure, product, 1);
-        productSum = 0;
-        int monthlyOProduct = monthlySaleProduct(sharedDataStructure, product, 2);
-        sum(sharedDataStructure, monthlyStoreSale, monthlyOnlineSale, monthlyProduct, monthlyOProduct);
-        cleardata(sharedDataStructure);
-        System.out.println(
-                month + " store sale: " + "$" + monthlyStoreSale + " --- " + month + " online sale: "
-                        + "$" + monthlyOnlineSale);
+        int monthlyStoreSale = monthlySale(SharedDataV2, 1, tempString);
+        int monthlyOnlineSale = monthlySale(SharedDataV2, 2, tempString);
+        int dor = monthlySaleProduct(SharedDataV2, tempString, 1);
+        // monthlySaleProduct(SharedDataV2, temp, 2);
+        sum(SharedDataV2, monthlyStoreSale, monthlyOnlineSale, dor, month);
+        writeMap(SharedDataV2);
+
+        // System.out.println(
+        // month + " store sale: " + "$" + monthlyStoreSale + " --- " + month + " online
+        // sale: "
+        // + "$" + monthlyOnlineSale);
     }
 
-    public static void readCSV(String path, ArrayList<ArrayList<Integer>> sharedData) {
+    public static synchronized void readCSV(String path, List<Map<String, Integer>> SharedDataV2,
+            ArrayList<String> temp) {
         try {
             fileBuffer = new BufferedReader(new FileReader(new File(path)));
             fileBuffer.readLine();
             String line = "";
             while ((line = fileBuffer.readLine()) != null) {
                 String[] contents = line.split(",");
-                sharedData.get(0).add(Integer.parseInt(contents[1]));
-                sharedData.get(1).add(Integer.parseInt(contents[2]));
-                sharedData.get(2).add(Integer.parseInt(contents[3]));
+                SharedDataV2.get(0).put(contents[0], Integer.parseInt(contents[1]));
+                SharedDataV2.get(1).put(contents[0], Integer.parseInt(contents[2]));
+                SharedDataV2.get(2).put(contents[0], Integer.parseInt(contents[3]));
+                temp.add(contents[0]);
             }
         } catch (IOException e) {
             System.err.println("Error");
         }
     }
 
-    public static void writeMap(String month, int index, Map<String, Integer> map) {
-        map.put(month.toLowerCase(), index);
-    }
-
-    public static int monthlySale(ArrayList<ArrayList<Integer>> sharedData, int index) {// method
+    public static int monthlySale(List<Map<String, Integer>> SharedDataV2, int index, ArrayList<String> temp) {// method
         int sum = 0; // sales for a month.
-        for (int i = 0; i < 12; i++) {
-            int productSales = sharedData.get(index).get(i) * sharedData.get(0).get(i);
+        for (int i = 0; i < temp.size(); i++) {
+            int productSales = SharedDataV2.get(index).get(temp.get(i))
+                    * SharedDataV2.get(0).get(temp.get(i));
             sum += productSales;
         }
         return sum;
     }
 
-    public static synchronized int monthlySaleProduct(ArrayList<ArrayList<Integer>> sharedData, String product,
-            int index) {// method
-        String[] products = { "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M" };
+    public static synchronized int monthlySaleProduct(List<Map<String, Integer>> SharedDataV2, ArrayList<String> temp,
+            int index) {// method;
         int sum = 0;
-        for (int i = 0; i < 12; i++) {
-            if (products[i].equalsIgnoreCase(product)) {
-                productSum = sharedData.get(index).get(i) * sharedData.get(0).get(i);
-                sum = productSum;
-            }
+        for (int i = 0; i < temp.size(); i++) {
+            sum = SharedDataV2.get(index).get(temp.get(i)) * SharedDataV2.get(0).get(temp.get(i));
+            SharedDataV2.get(index + 4).put(temp.get(i), sum);
         }
         return sum;
     }
 
-    public static void sum(ArrayList<ArrayList<Integer>> sharedData, int a, int b, int c, int d) {
-        int sumA = 0;
-        sharedData.get(3).add(a);
-        for (int i = 0; i < sharedData.get(3).size(); i++) {
-            sumA += sharedData.get(3).get(i);
+    public void sum(List<Map<String, Integer>> sharedDataV2, int a, int b, int c, String month) {
+        synchronized (this) {
+            sharedDataV2.get(3).put(month.toUpperCase(), a);
+            storeSum += a;
+            sharedDataV2.get(7).put(Integer.toString(indicator.intValue()), storeSum);
+
+            sharedDataV2.get(4).put(month.toUpperCase(), b);
+            onlineSum += b;
+            sharedDataV2.get(8).put(Integer.toString(indicator.intValue()), onlineSum);
         }
-        sharedData.get(7).add(sumA);
-        sharedData.get(4).add(b);
-        int sumB = 0;
-        for (int i = 0; i < sharedData.get(3).size(); i++) {
-            sumB += sharedData.get(4).get(i);
-        }
-        sharedData.get(8).add(sumB);
-        sharedData.get(5).add(c);
-        int sumC = 0;
-        for (int i = 0; i < sharedData.get(3).size(); i++) {
-            sumC += sharedData.get(5).get(i);
-        }
-        sharedData.get(9).add(sumC);
-        sharedData.get(6).add(d);
-        int sumD = 0;
-        for (int i = 0; i < sharedData.get(3).size(); i++) {
-            sumD += sharedData.get(6).get(i);
-        }
-        sharedData.get(10).add(sumD);
+        // sharedData.get(6).add(d);
+        // int sumD = 0;
+        // for (int i = 0; i < sharedData.get(3).size(); i++) {
+        // sumD += sharedData.get(6).get(i);
+        // }
+        // sharedData.get(10).add(sumD);
     }
 
-    public synchronized void cleardata(ArrayList<ArrayList<Integer>> sharedC) {
-        sharedC.get(0).clear();
-        sharedC.get(1).clear();
-        sharedC.get(2).clear();
-        productSum = 0;
+    public synchronized void writeMap(List<Map<String, Integer>> sharedDataV2) {
+        if (indicator.get() == 1) {
+            Saaaa = sharedDataV2.get(5);
+            System.out.println(Saaaa);
+        } else {
+            Saaaa.forEach((k, v) -> sharedDataV2.get(5).merge(k, v, Integer::sum));
+            System.out.println(sharedDataV2.get(5).toString());
+        }
     }
 }
