@@ -39,10 +39,8 @@ public class Data {
         SharedDataV2.add(totalOnlineMap);// 4
         SharedDataV2.add(totalProductStore); // 5
         SharedDataV2.add(totalProductOnline); // 6
-        SharedDataV2.add(mark11);
-        SharedDataV2.add(mark12);
-        SharedDataV2.add(mark13);
-
+        SharedDataV2.add(mark11); // used 7
+        SharedDataV2.add(mark12); // used 8
         return SharedDataV2;
     }
 

@@ -107,8 +107,8 @@ public class invertedIndex {
         productInput = scan.nextLine();
         scan.close();
         System.out.println();
-        System.out.println(SharedDataV2.get(5).get(productInput));
-        // totalOnlineProduct = SharedDataV2.get(6).get(productInput.toUpperCase());
+        System.out.println(SharedDataV2.get(9).get(productInput.toUpperCase()));
+        totalOnlineProduct = SharedDataV2.get(10).get(productInput.toUpperCase());
         System.out.println("For the product " + productInput.toUpperCase());
         System.out.println("In-store sales: " + totalInStoreProduct);
         System.out.println("Online sales: " + totalOnlineProduct);
