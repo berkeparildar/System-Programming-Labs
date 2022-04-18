@@ -8,17 +8,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class myRunnable implements Runnable {
     private static BufferedReader fileBuffer;
-    Data var = new Data();
     static int productSum = 0;
     static int storeSum = 0;
     static int onlineSum = 0;
-    static volatile int intindicator = 1;
-    static volatile boolean bok = true;
     static AtomicInteger indicator = new AtomicInteger(1);
     String month;
     String path;
@@ -27,7 +23,6 @@ public class myRunnable implements Runnable {
     ArrayList<String> tempString = new ArrayList<>();
     static Map<String, Integer> temporaryMap = Collections.synchronizedMap(new HashMap<String, Integer>());
     static Map<String, Integer> temporaryMap2 = Collections.synchronizedMap(new HashMap<String, Integer>());
-    static AtomicBoolean bool = new AtomicBoolean(true);
 
     public myRunnable(String tMonth, String tPath,
             List<Map<String, Integer>> sharedDataStructurevvv) {
@@ -45,7 +40,7 @@ public class myRunnable implements Runnable {
             sum(sharedDataStructure, monthlyStoreSale, monthlyOnlineSale, month);
             monthlySaleProduct(sharedDataStructure, tempString, 1);
             monthlySaleProduct(sharedDataStructure, tempString, 2);
-            writeMap(sharedDataStructure, bok);
+            writeMap(sharedDataStructure);
             cleardata(sharedDataStructure);
         }
         // System.out.println(
@@ -97,19 +92,10 @@ public class myRunnable implements Runnable {
         sharedDataStructure.get(3).put(month.toUpperCase(), a);
         storeSum += a;
         sharedDataStructure.get(7).put(Integer.toString(indicator.get()), storeSum);
-
         sharedDataStructure.get(4).put(month.toUpperCase(), b);
         onlineSum += b;
         sharedDataStructure.get(8).put(Integer.toString(indicator.get()), onlineSum);
-
         indicator.incrementAndGet();
-
-        // sharedData.get(6).add(d);
-        // int sumD = 0;
-        // for (int i = 0; i < sharedData.get(3).size(); i++) {
-        // sumD += sharedData.get(6).get(i);
-        // }
-        // sharedData.get(10).add(sumD);
     }
 
     public synchronized void cleardata(List<Map<String, Integer>> sharedC) {
@@ -121,7 +107,7 @@ public class myRunnable implements Runnable {
         productSum = 0;
     }
 
-    public static void writeMap(List<Map<String, Integer>> sharedDataStructure, boolean bool) {
+    public static void writeMap(List<Map<String, Integer>> sharedDataStructure) {
         sharedDataStructure.get(5).forEach((k, v) -> temporaryMap.merge(k, v, Integer::sum));
         sharedDataStructure.get(6).forEach((k, v) -> temporaryMap2.merge(k, v, Integer::sum));
     }

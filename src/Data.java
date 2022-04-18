@@ -26,12 +26,8 @@ public class Data {
     Map<String, Integer> totalProductOnline = new HashMap<>();
     Map<String, Integer> mark11 = new HashMap<>();
     Map<String, Integer> mark12 = new HashMap<>();
-    Map<String, Integer> mark13 = new HashMap<>();
 
-    /**
-     * @return the sharedDataV2
-     */
-    public List<Map<String, Integer>> getSharedDataV2() {
+    public List<Map<String, Integer>> getSharedDataStructure() {
         SharedDataV2.add(priceMap); // 0
         SharedDataV2.add(inStoreMap);// 1
         SharedDataV2.add(onlineMap);// 2
