@@ -20,29 +20,30 @@ public class myRunnable implements Runnable {
     String path;
     List<Map<String, Integer>> sharedDataStructure = Collections
             .synchronizedList(new LinkedList<Map<String, Integer>>());
-    ArrayList<String> tempString = new ArrayList<>();
+    static ArrayList<String> tempString = new ArrayList<>();
     static Map<String, Integer> temporaryMap = Collections.synchronizedMap(new HashMap<String, Integer>());
     static Map<String, Integer> temporaryMap2 = Collections.synchronizedMap(new HashMap<String, Integer>());
 
-    public myRunnable(String tMonth, String tPath,
-            List<Map<String, Integer>> sharedDataStructurevvv) {
-        month = tMonth;
+    public myRunnable(String tPath,
+            List<Map<String, Integer>> tSharedDataStructure) {
         path = tPath;
-        sharedDataStructure = sharedDataStructurevvv;
+        sharedDataStructure = tSharedDataStructure;
+        String[] monthInput = tPath.split("[\\W]");
+        month = monthInput[3].substring(0, 1).toUpperCase() + monthInput[3].substring(1);
     }
 
     public void run() {
         synchronized (sharedDataStructure) {
             System.out.println("Thread parsing " + month + " data.");
             readCSV(path, sharedDataStructure, tempString);
-            int monthlyStoreSale = monthlySale(sharedDataStructure, 1, tempString);
-            int monthlyOnlineSale = monthlySale(sharedDataStructure, 2, tempString);
-            sum(sharedDataStructure, monthlyStoreSale, monthlyOnlineSale, month);
             monthlySaleProduct(sharedDataStructure, tempString, 1);
             monthlySaleProduct(sharedDataStructure, tempString, 2);
             writeMap(sharedDataStructure);
-            cleardata(sharedDataStructure);
         }
+        int monthlyStoreSale = monthlySale(sharedDataStructure, 1, tempString);
+        int monthlyOnlineSale = monthlySale(sharedDataStructure, 2, tempString);
+        sum(sharedDataStructure, monthlyStoreSale, monthlyOnlineSale, month);
+        cleardata(sharedDataStructure);
         // System.out.println(
         // month + " store sale: " + "$" + monthlyStoreSale + " --- " + month + " online
         // sale: "
@@ -63,11 +64,12 @@ public class myRunnable implements Runnable {
                 temp.add(contents[0]);
             }
         } catch (IOException e) {
-            System.err.println("Error");
+            System.err.println("Couldn't find the input, try again.\nFor exapmle: 02-February.csv");
+            System.exit(0);
         }
     }
 
-    public static int monthlySale(List<Map<String, Integer>> sharedDataStructure, int index,
+    public synchronized int monthlySale(List<Map<String, Integer>> sharedDataStructure, int index,
             ArrayList<String> temp) {// method
         int sum = 0; // sales for a month.
         for (int i = 0; i < temp.size(); i++) {
@@ -78,7 +80,7 @@ public class myRunnable implements Runnable {
         return sum;
     }
 
-    public static synchronized void monthlySaleProduct(List<Map<String, Integer>> sharedDataStructure,
+    public synchronized void monthlySaleProduct(List<Map<String, Integer>> sharedDataStructure,
             ArrayList<String> temp,
             int index) {// method;
         int sum = 0;
@@ -88,7 +90,7 @@ public class myRunnable implements Runnable {
         }
     }
 
-    public static void sum(List<Map<String, Integer>> sharedDataStructure, int a, int b, String month) {
+    public synchronized void sum(List<Map<String, Integer>> sharedDataStructure, int a, int b, String month) {
         sharedDataStructure.get(3).put(month.toUpperCase(), a);
         storeSum += a;
         sharedDataStructure.get(7).put(Integer.toString(indicator.get()), storeSum);
@@ -104,11 +106,14 @@ public class myRunnable implements Runnable {
         sharedC.get(2).clear();
         sharedC.add(temporaryMap);
         sharedC.add(temporaryMap2);
+        tempString.clear();
         productSum = 0;
     }
 
-    public static void writeMap(List<Map<String, Integer>> sharedDataStructure) {
-        sharedDataStructure.get(5).forEach((k, v) -> temporaryMap.merge(k, v, Integer::sum));
-        sharedDataStructure.get(6).forEach((k, v) -> temporaryMap2.merge(k, v, Integer::sum));
+    public void writeMap(List<Map<String, Integer>> sharedDataStructure) {
+        synchronized (sharedDataStructure) {
+            sharedDataStructure.get(5).forEach((k, v) -> temporaryMap.merge(k, v, Integer::sum));
+            sharedDataStructure.get(6).forEach((k, v) -> temporaryMap2.merge(k, v, Integer::sum));
+        }
     }
 }
