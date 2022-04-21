@@ -15,14 +15,20 @@ public class myRunnable implements Runnable {
     static int productSum = 0;
     static int storeSum = 0;
     static int onlineSum = 0;
-    static AtomicInteger indicator = new AtomicInteger(1);
+    static AtomicInteger indicator = new AtomicInteger(1); // used as index
     String month;
     String path;
     List<Map<String, Integer>> sharedDataStructure = Collections
-            .synchronizedList(new LinkedList<Map<String, Integer>>());
-    static ArrayList<String> tempString = new ArrayList<>();
-    static Map<String, Integer> temporaryMap = Collections.synchronizedMap(new HashMap<String, Integer>());
-    static Map<String, Integer> temporaryMap2 = Collections.synchronizedMap(new HashMap<String, Integer>());
+            .synchronizedList(new LinkedList<Map<String, Integer>>()); // main data structure
+    static ArrayList<String> tempString = new ArrayList<>(); // stores the name of the products
+    static Map<String, Integer> temporaryMap = Collections.synchronizedMap(new HashMap<String, Integer>()); // temporarily
+                                                                                                            // stores
+                                                                                                            // in-store
+                                                                                                            // product
+    static Map<String, Integer> temporaryMap2 = Collections.synchronizedMap(new HashMap<String, Integer>()); // temporarily
+                                                                                                             // stores
+                                                                                                             // online
+                                                                                                             // product
 
     public myRunnable(String tPath,
             List<Map<String, Integer>> tSharedDataStructure) {
@@ -104,16 +110,17 @@ public class myRunnable implements Runnable {
         sharedC.get(0).clear();
         sharedC.get(1).clear();
         sharedC.get(2).clear();
-        sharedC.add(temporaryMap);
-        sharedC.add(temporaryMap2);
+        // sharedC.add(temporaryMap);
+        // sharedC.add(temporaryMap2);
         tempString.clear();
         productSum = 0;
+        System.out.println(sharedC.size());
     }
 
     public void writeMap(List<Map<String, Integer>> sharedDataStructure) {
         synchronized (sharedDataStructure) {
-            sharedDataStructure.get(5).forEach((k, v) -> temporaryMap.merge(k, v, Integer::sum));
-            sharedDataStructure.get(6).forEach((k, v) -> temporaryMap2.merge(k, v, Integer::sum));
+            sharedDataStructure.get(5).forEach((k, v) -> sharedDataStructure.get(9).merge(k, v, Integer::sum));
+            sharedDataStructure.get(6).forEach((k, v) -> sharedDataStructure.get(10).merge(k, v, Integer::sum));
         }
     }
 }
