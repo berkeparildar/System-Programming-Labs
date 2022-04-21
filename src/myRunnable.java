@@ -1,10 +1,8 @@
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -21,14 +19,6 @@ public class myRunnable implements Runnable {
     List<Map<String, Integer>> sharedDataStructure = Collections
             .synchronizedList(new LinkedList<Map<String, Integer>>()); // main data structure
     static ArrayList<String> tempString = new ArrayList<>(); // stores the name of the products
-    static Map<String, Integer> temporaryMap = Collections.synchronizedMap(new HashMap<String, Integer>()); // temporarily
-                                                                                                            // stores
-                                                                                                            // in-store
-                                                                                                            // product
-    static Map<String, Integer> temporaryMap2 = Collections.synchronizedMap(new HashMap<String, Integer>()); // temporarily
-                                                                                                             // stores
-                                                                                                             // online
-                                                                                                             // product
 
     public myRunnable(String tPath,
             List<Map<String, Integer>> tSharedDataStructure) {
@@ -59,7 +49,7 @@ public class myRunnable implements Runnable {
     public synchronized void readCSV(String path, List<Map<String, Integer>> sharedDataStructure,
             ArrayList<String> temp) {
         try {
-            fileBuffer = new BufferedReader(new FileReader(new File(path)));
+            fileBuffer = new BufferedReader(new FileReader(path));
             fileBuffer.readLine();
             String line = "";
             while ((line = fileBuffer.readLine()) != null) {
@@ -110,11 +100,8 @@ public class myRunnable implements Runnable {
         sharedC.get(0).clear();
         sharedC.get(1).clear();
         sharedC.get(2).clear();
-        // sharedC.add(temporaryMap);
-        // sharedC.add(temporaryMap2);
         tempString.clear();
         productSum = 0;
-        System.out.println(sharedC.size());
     }
 
     public void writeMap(List<Map<String, Integer>> sharedDataStructure) {
