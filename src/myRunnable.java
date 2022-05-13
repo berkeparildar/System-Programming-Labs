@@ -1,11 +1,14 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class myRunnable implements Runnable {
@@ -25,7 +28,11 @@ public class myRunnable implements Runnable {
         path = tPath;
         sharedDataStructure = tSharedDataStructure;
         String[] monthInput = tPath.split("[\\W]");
-        month = monthInput[3].substring(0, 1).toUpperCase() + monthInput[3].substring(1);
+        // for (int i = 0; i < monthInput.length; i++) {
+        // System.out.println(monthInput.length);
+        // System.out.println(monthInput[i]);
+        // }
+        month = monthInput[12].substring(0, 1).toUpperCase() + monthInput[12].substring(1);
     }
 
     public void run() {
@@ -40,16 +47,16 @@ public class myRunnable implements Runnable {
         int monthlyOnlineSale = monthlySale(sharedDataStructure, 2, tempString);
         sum(sharedDataStructure, monthlyStoreSale, monthlyOnlineSale, month);
         cleardata(sharedDataStructure);
-        // System.out.println(
-        // month + " store sale: " + "$" + monthlyStoreSale + " --- " + month + " online
-        // sale: "
-        // + "$" + monthlyOnlineSale);
+        System.out.println(
+                month + " store sale: " + "$" + monthlyStoreSale + " --- " + month + " online sale: " + "$"
+                        + monthlyOnlineSale);
     }
 
     public synchronized void readCSV(String path, List<Map<String, Integer>> sharedDataStructure,
             ArrayList<String> temp) {
         try {
-            fileBuffer = new BufferedReader(new FileReader(path));
+            URL url = new URL(path);
+            fileBuffer = new BufferedReader(new InputStreamReader(url.openStream()));
             fileBuffer.readLine();
             String line = "";
             while ((line = fileBuffer.readLine()) != null) {
@@ -60,7 +67,7 @@ public class myRunnable implements Runnable {
                 temp.add(contents[0]);
             }
         } catch (IOException e) {
-            System.err.println("Couldn't find the input, try again.\nFor exapmle: 02-February.csv");
+            System.err.println("Couldn't find the input, try again.\nFor exapmle: 02-February.txt");
             System.exit(0);
         }
     }

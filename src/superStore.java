@@ -18,7 +18,7 @@ public class superStore {
 
                 ExecutorService executor = Executors.newFixedThreadPool(10);
                 for (int i = 0; i < inputArray.length; i++) {
-                        String path = "src//" + inputArray[i];
+                        String path = "http://homes.ieu.edu.tr/culudagli/files/SE375/datasets/" + inputArray[i];
                         Runnable worker = new Thread(new myRunnable(path, sharedDataStructure));
                         executor.execute(worker);
                 }

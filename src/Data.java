@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,4 +32,28 @@ public class Data {
         sharedDataStructure.add(sumProductOnline);
         return sharedDataStructure;
     }
+
+    ArrayList<String> urls = new ArrayList<>();
+
+    /**
+     * @return the urls
+     */
+    public ArrayList<String> getUrls() {
+        urls.add("http://homes.ieu.edu.tr/culudagli/files/SE375/datasets/01-January.txt");
+        return urls;
+    }
 }
+
+// InetAddress addr;
+// try {
+// addr = InetAddress.getByName("www.turkiye.gov.tr");
+// System.out.println(addr.getHostAddress());
+// addr = InetAddress.getByName("94.55.118.33");
+// System.out.println(addr.getHostName());
+// } catch (UnknownHostException e) {}
+
+// InetAddress[] google = InetAddress.getAllByName("www.javatpoint.com");
+
+// for (InetAddress address : google) {
+// System.out.println(address.getHostAddress());
+// }

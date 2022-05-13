@@ -14,13 +14,14 @@ public class invertedIndex {
         int totalInStoreProduct = 0;
         int totalOnlineProduct = 0;
         String productInput;
-        System.out.println("Please enter the name of the files that will be calculated in the directory.");
+        System.out.println(
+                "Please enter the name of the files that will be calculated in the directory. Care for upper case letters\nFor example: 02-February.txt");
         String input = scan.nextLine();
         String[] inputArray = input.split(" ");
 
         ExecutorService executor = Executors.newFixedThreadPool(10);
         for (int i = 0; i < inputArray.length; i++) {
-            String path = "src//" + inputArray[i];
+            String path = "http://homes.ieu.edu.tr/culudagli/files/SE375/datasets/" + inputArray[i];
             Runnable worker = new Thread(new myRunnable(path, sharedDataStructure));
             executor.execute(worker);
         }
@@ -30,7 +31,7 @@ public class invertedIndex {
 
         System.out.println("All thread are finished");
         System.out.println();
-        System.out.println("Which product do you want to search");
+        System.out.println("Which product do you want to search. Make sure the letter is upper case.");
         productInput = scan.nextLine();
         scan.close();
         System.out.println();
