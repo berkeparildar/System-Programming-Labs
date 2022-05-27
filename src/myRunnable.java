@@ -47,9 +47,9 @@ public class myRunnable implements Runnable {
         int monthlyOnlineSale = monthlySale(sharedDataStructure, 2, tempString);
         sum(sharedDataStructure, monthlyStoreSale, monthlyOnlineSale, month);
         cleardata(sharedDataStructure);
-        System.out.println(
+       /* System.out.println(
                 month + " store sale: " + "$" + monthlyStoreSale + " --- " + month + " online sale: " + "$"
-                        + monthlyOnlineSale);
+                        + monthlyOnlineSale);*/
     }
 
     public synchronized void readCSV(String path, List<Map<String, Integer>> sharedDataStructure,

@@ -32,16 +32,6 @@ public class Data {
         sharedDataStructure.add(sumProductOnline);
         return sharedDataStructure;
     }
-
-    ArrayList<String> urls = new ArrayList<>();
-
-    /**
-     * @return the urls
-     */
-    public ArrayList<String> getUrls() {
-        urls.add("http://homes.ieu.edu.tr/culudagli/files/SE375/datasets/01-January.txt");
-        return urls;
-    }
 }
 
 // InetAddress addr;
